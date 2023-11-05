@@ -13,7 +13,7 @@ get_tmp_path() {
 stop_emacs_proc() {
     log_debug "stop_emacs_proc: path to pipe: $PATH_TO_PIPE"
     PATH_TO_PIPE="$1"
-    emacsclient --eval "(emacspipe--stop-proc \"$PATH_TO_PIPE\")" # \"$BUFFER_NAME\")"
+    emacsclient --eval "(epipe--stop-proc \"$PATH_TO_PIPE\")" # \"$BUFFER_NAME\")"
     log_debug "stop_emacs_proc_done"
 }
 
@@ -21,7 +21,7 @@ start_emacs_proc() {
     PATH_TO_PIPE="$1"
     BUFFER_NAME="${2:-*epipe $(date +%s)*}"
     log_debug "start_emacs_proc: path to pipe: $PATH_TO_PIPE"
-    emacsclient --eval "(emacspipe--add-proc \"$PATH_TO_PIPE\")" # \"$BUFFER_NAME\")"
+    emacsclient --eval "(epipe--add-proc \"$PATH_TO_PIPE\")" # \"$BUFFER_NAME\")"
     log_debug "start_emacs_proc_done"
 }
 
@@ -42,18 +42,18 @@ stream_pipe() {
 }
 
 output_pipe() {
-    # emacspipe: Pipe output to an Emacs buffer.
+    # epipe: Pipe output to an Emacs buffer.
     log_debug "output_pipe"
     # Default buffer name if none provided, with a unique identifier.
-    BUFFER_NAME="${1:-*emacspipe $(date +%s)*}"
+    BUFFER_NAME="${1:-*epipe $(date +%s)*}"
 
     # Read from stdin and escape double quotes and backslashes.
     OUTPUT=$(cat - | sed 's/\\/\\\\/g' | sed 's/\"/\\\"/g')
 
-    # echo --eval "(emacspipe-receive \"$(echo "$OUTPUT" | base64)\" \"$BUFFER_NAME\")"
+    # echo --eval "(epipe-receive \"$(echo "$OUTPUT" | base64)\" \"$BUFFER_NAME\")"
     # Use emacsclient to pass the output to an Emacs function.
     # We use base64 to encode the output to avoid issues with special characters.
-    emacsclient --eval "(emacspipe-receive \"$(echo "$OUTPUT" | base64)\" \"$BUFFER_NAME\")"
+    emacsclient --eval "(epipe-receive \"$(echo "$OUTPUT" | base64)\" \"$BUFFER_NAME\")"
     log_debug "output_pipe done"
 }
 
