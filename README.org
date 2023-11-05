@@ -1,0 +1,49 @@
+#+TITLE: emacspipe - pipe stdout/stderr to emacs
+#+AUTHOR: fkr
+
+
+
+* Introduction
+This package allows to pipe content from the shell to emacs buffers. Noteworthy
+naming-contenders were ~teapipe~, because maybe we will try to mimic more of coreutils ~tee~ program. Or ~streamacs~ for the streaming component.
+
+* TODO
+- more commandlineflacs for ~epipe~
+
+* Installation
+
+* Usage
+With running emacs server instance, ~chmod +x~ the ~epipe~ shell-script and run it using:
+#+begin_src sh
+echo "test" | epipe
+#+end_src
+The emacs server instance will spawn a buffer containing ~"test"~
+
+For the streaming version, have a process printing to stdout, e.g. ~tail -f~. For some
+file ~/tmp/myfile~, the usage is
+#+begin_src sh
+tail -f /tmp/myfile | epipe -s
+#+end_src
+This results in:
+- an emacs network process listening on a tmp unix socket
+- the output of tail -f being continuously streamed to the socket using ~socat~ (~base64~ encoded).
+- emacs decoding and printing (async) to a tmp buffer
+
+
+* Files
+#+begin_example
+├── Cask
+├── emacspipe
+├── emacspipe.el
+├── epipe
+├── Makefile
+├── my-live-update-package.zip
+├── README.org
+├── streamacs
+#+end_example
+* Testing
+- BATS ::
+  To run the BATS integration tests, execute the `stream-to-emacs.bats` file within the `tests` directory.
+- ERT ::
+  For the included emacs regression tests run them using either ~make test~
+  through the included ~Makefile~ or execute ~(ert-run-tests-batch)~ from within emacs.
