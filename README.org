@@ -1,9 +1,9 @@
 #+TITLE: emacspipe - pipe stdout/stderr to emacs
 #+AUTHOR: fkr
 
-
-#+attr_html: :alt  :align left :class img
-[[https://github.com/fkr-0/epipe/blob/media/banner.png?raw=true][ll]]
+#+CAPTION: A black cat stalking a spider
+#+ATTR_HTML: :alt cat/spider image :title Action! :align right
+[[https://github.com/fkr-0/epipe/blob/media/banner.png]]
 
 
 * Introduction
