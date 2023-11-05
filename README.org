@@ -2,6 +2,9 @@
 #+AUTHOR: fkr
 
 
+#+attr_html: :alt  :align left :class img
+[[https://github.com/fkr-0/epipe/blob/media/banner.png?raw=true][ll]]
+
 
 * Introduction
 This package allows to pipe content from the shell to emacs buffers. Noteworthy
